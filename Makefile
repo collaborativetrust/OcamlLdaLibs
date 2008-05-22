@@ -1,6 +1,6 @@
-OUR_LD_ADD = str.cma unix.cma 
-OUR_OPTLD_ADD = str.cmxa unix.cmxa 
-INCLUDES = 
+OUR_LD_ADD = str.cma unix.cma xml-light.cma 
+OUR_OPTLD_ADD = str.cmxa unix.cmxa xml-light.cmxa
+INCLUDES = -I xml-light
 
 OCAMLC=ocamlc
 OCAMLOPT=ocamlopt
@@ -40,6 +40,17 @@ OCAMLOPT_FLAGS=$(INCLUDES)
 
 # Objects
 
+ALLCMO = vec.cmo mapmin.cmo intvmap.cmo hashtbl_bounded.cmo fileinfo.cmo
+ALLCMX = vec.cmx mapmin.cmx intvmap.cmx hashtbl_bounded.cmx fileinfo.cmx
+
+all: $(ALLCMO)
+	cd xml-light; make all
+	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO)
+
+allopt: $(ALLCMX)
+	cd xml-light; make opt
+	$(OCAMLOPT) $(OCAMLOPT_FLAGS) -a -o ocamlldalibs.cmxa $(ALLCMX)
+
 vec: vec.cmo
 vecopt: vec.cmx
 
@@ -52,12 +63,12 @@ intvmapopt: intvmap.cmx
 hashtbl_bounded: hashtbl_bounded.cmo
 hashtbl_boundedopt: hashtbl_bounded.cmx
 
-all: vec.cmo mapmin.cmo intvmap.cmo hashtbl_bounded.cmo
-
-allopt: vec.cmx mapmin.cmx intvmap.cmx hashtbl_bounded.cmx
+fileinfo: fileinfo.cmo
+fileinfoopt: fileinfo.cmx
 
 clean:
 	rm -f *.o *.cmo *.cmx *.cmi .depends 
+	cd xml-light; make clean
 
 .depends: *.ml
 	$(OCAMLDEP) $^ > $@
