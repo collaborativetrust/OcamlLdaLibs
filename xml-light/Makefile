@@ -9,7 +9,7 @@ LIBS=
 
 all: xml-light.cma test.exe doc
 
-opt: xml-light.cmxa test_opt.exe
+allopt: xml-light.cmxa test_opt.exe
 
 installcommon: all
 	cp xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi $(INSTALLDIR)

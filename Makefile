@@ -43,13 +43,18 @@ OCAMLOPT_FLAGS=$(INCLUDES)
 ALLCMO = vec.cmo mapmin.cmo intvmap.cmo hashtbl_bounded.cmo fileinfo.cmo
 ALLCMX = vec.cmx mapmin.cmx intvmap.cmx hashtbl_bounded.cmx fileinfo.cmx
 
-all: $(ALLCMO)
+all: 
 	cd xml-light; make all
-	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO)
+	make mk_allcmo
+	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO) xml-light.cma
 
-allopt: $(ALLCMX)
-	cd xml-light; make opt
+allopt: 
+	cd xml-light; make allopt
+	make mk_allcmx
 	$(OCAMLOPT) $(OCAMLOPT_FLAGS) -a -o ocamlldalibs.cmxa $(ALLCMX)
+
+mk_allcmo: $(ALLCMO)
+mk_allcmx: $(ALLCMX)
 
 vec: vec.cmo
 vecopt: vec.cmx
