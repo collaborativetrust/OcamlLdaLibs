@@ -46,7 +46,7 @@ ALLCMX = vec.cmx mapmin.cmx intvmap.cmx hashtbl_bounded.cmx fileinfo.cmx
 all: 
 	cd xml-light; make all
 	make mk_allcmo
-	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO) xml-light.cma
+	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO) 
 
 allopt: 
 	cd xml-light; make allopt

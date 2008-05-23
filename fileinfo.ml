@@ -70,17 +70,19 @@ object
       Some (Xml.parse_file info_file_name) 
     with _ -> None 
     in 
-    (* Adds this information about the input to the rest of the information. *)
-    begin 
+    (* We need to add the file name, as this is always available. *)
+    let xml_file = begin 
       match xml_in with 
-	Some x -> input_info <- input_info @ [x]
-      | None -> ();
-    end;
+	Some x -> Xml.Element ("InputFile", [("Name", f_name)], [x])
+      | None -> Xml.Element ("InputFile", [("Name", f_name)], [])
+    end in 
+    (* Adds this information about the input to the rest of the information. *)
+    input_info <- input_info @ [xml_file];
     (* Returns the file pointer to the file opened *)
     fp
 
   (* Closes a file for input *)
-  method m_close_info_in (fp: in_channel) = close_in fp
+  method m_close_info_in (fp: in_channel) = close_in_noerr fp
 
   (* Opens a file for output.  We need to remember the name for later on. *)
   method m_open_info_out (f_name: string) : out_channel = 
