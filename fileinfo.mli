@@ -54,6 +54,10 @@ val make_info_obj : string -> string -> unit
 (** Opens a file for reading, reading also its information *)
 val open_info_in : string -> in_channel
 
+(** Not all files are opened via open_info_in.  This function
+    is used to manually add extra files to be tracked. *)
+val track_file : string -> unit
+
 (** Closes a file for reading *)
 val close_info_in : in_channel -> unit
 
@@ -62,3 +66,6 @@ val open_info_out : string -> out_channel
 
 (* Closes a file for output, writing at the end also the xml information *)
 val close_info_out : out_channel -> unit
+
+(* Gives me an xml string that summarizes all that has happened *)
+val make_xml_string : unit -> string

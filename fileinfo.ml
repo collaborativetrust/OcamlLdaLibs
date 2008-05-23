@@ -45,24 +45,22 @@ class file_info
   (extra_info: string) (* anything goes *)
   = 
   let time_pm = Unix.gmtime (Unix.time ()) in 
-  let time_str = Printf.sprintf "%4d-%2d-%2d %2d:%2d:%2d" time_pm.Unix.tm_year (time_pm.Unix.tm_mon + 1) time_pm.Unix.tm_mday time_pm.Unix.tm_hour time_pm.Unix.tm_min time_pm.Unix.tm_sec in 
+  let time_str = Printf.sprintf "%4dy%02dm%02dd %02d:%02d:%02d GMT" (time_pm.Unix.tm_year + 1900) (time_pm.Unix.tm_mon + 1) time_pm.Unix.tm_mday time_pm.Unix.tm_hour time_pm.Unix.tm_min time_pm.Unix.tm_sec in 
   let cmd_line = String.concat " " (Array.to_list Sys.argv) in 
   let my_info = 
         [("Command", cmd_line); 
 	 ("Version", version);
          ("Info", extra_info); 
 	 ("Date", time_str)] in 
-object
+object (self)
 
   (* Here we store the info on the files we have read as input *)
   val mutable input_info : Xml.xml list = []
   (* Hash table to store the names of open files *)
   val file_names : (out_channel, string) Hashtbl.t = Hashtbl.create 10
 
-  (* Opens a file, collecting the xml info if present *)
-  method m_open_info_in (f_name: string) : in_channel = 
-    (* Opens the real file *)
-    let fp = open_in f_name in 
+  (* Tracks one more input file *)
+  method m_track_input_file (f_name: string) : unit = 
     let info_file_name = f_name ^ info_ext in 
     (* Parses the xml file.  I don't want errors here: I don't want
        to break the main process for lack of .xml data. *)
@@ -77,8 +75,13 @@ object
       | None -> Xml.Element ("InputFile", [("Name", f_name)], [])
     end in 
     (* Adds this information about the input to the rest of the information. *)
-    input_info <- input_info @ [xml_file];
-    (* Returns the file pointer to the file opened *)
+    input_info <- input_info @ [xml_file]
+
+  (* Opens a file, collecting the xml info if present *)
+  method m_open_info_in (f_name: string) : in_channel = 
+    (* Opens the real file *)
+    let fp = open_in f_name in 
+    self#m_track_input_file f_name; 
     fp
 
   (* Closes a file for input *)
@@ -88,6 +91,11 @@ object
   method m_open_info_out (f_name: string) : out_channel = 
     let fp = open_out f_name in 
     Hashtbl.add file_names fp f_name; fp
+
+  (* Produces a string representative of what has happened up to this moment *)
+  method m_make_xml_string (): string = 
+    let xml_out_el = Xml.Element ("Process", my_info, input_info) in 
+    Xml.to_string_fmt xml_out_el
 
   (* Closes a file for output, and writes the information about how the file
      was produced. *)
@@ -107,12 +115,9 @@ object
 	None -> ()
       | Some n -> begin 
 	  (* Yes, we have the name of the info file. *)
-	  (* First, produces the right xml element to output *)
-	  let xml_out_el = Xml.Element ("Process", my_info, input_info) in 
-	  (* Opens the output file *)
 	  let info_file_n = n ^ info_ext in 
 	  let info_fp = open_out info_file_n in 
-	  output_string info_fp (Xml.to_string_fmt xml_out_el); 
+	  output_string info_fp (self#m_make_xml_string ());
 	  close_out_noerr info_fp
 	end
     end
@@ -126,7 +131,12 @@ let info_obj = ref (new file_info "" "")
 let make_info_obj (version: string) (extra_info: string) : unit = 
   info_obj := new file_info version extra_info
 
-let open_info_in = !info_obj#m_open_info_in
-let close_info_in = !info_obj#m_close_info_in
-let open_info_out = !info_obj#m_open_info_out
-let close_info_out = !info_obj#m_close_info_out
+(* Note: "let open_info_in = !info_obj#m_open_info_in" does not work, 
+   as the function is statiscally bound to the method of the ORIGINAL 
+   object. *)
+let open_info_in f = !info_obj#m_open_info_in f
+let track_file f = !info_obj#m_track_input_file f 
+let close_info_in f = !info_obj#m_close_info_in f
+let open_info_out f = !info_obj#m_open_info_out f
+let close_info_out f = !info_obj#m_close_info_out f
+let make_xml_string () = !info_obj#m_make_xml_string ()
