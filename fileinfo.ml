@@ -118,6 +118,7 @@ object (self)
 	  let info_file_n = n ^ info_ext in 
 	  let info_fp = open_out info_file_n in 
 	  output_string info_fp (self#m_make_xml_string ());
+	  output_string info_fp "\n";
 	  close_out_noerr info_fp
 	end
     end
