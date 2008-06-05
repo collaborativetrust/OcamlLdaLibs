@@ -45,15 +45,15 @@ ALLCMX = vec.cmx mapmin.cmx intvmap.cmx hashtbl_bounded.cmx fileinfo.cmx
 
 all: 
 	cd xml-light; make all
-	cd type-conv; make all
-	cd sexplib; make all
+	cd type-conv; make all; make install
+	cd sexplib; make all; make install
 	make mk_allcmo
 	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO) 
 
 allopt: 
 	cd xml-light; make allopt
-	cd type-conv; make all
-	cd sexplib; make all
+	cd type-conv; make all; make install
+	cd sexplib; make all; make install
 	make mk_allcmx
 	$(OCAMLOPT) $(OCAMLOPT_FLAGS) -a -o ocamlldalibs.cmxa $(ALLCMX)
 
