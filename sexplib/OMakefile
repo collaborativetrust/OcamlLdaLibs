@@ -1,0 +1,5 @@
+OCAMLPACKS += bigarray num
+
+.SUBDIRS: lib lib_test doc
+
+InstantiateOCamlEnv()

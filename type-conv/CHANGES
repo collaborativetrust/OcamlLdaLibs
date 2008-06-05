@@ -1,0 +1,6 @@
+2008-03-17:  Improved META file and support of toplevel interpreter.
+
+2008-02-11:  Added support for handling variance annotations in
+             signatures, and for empty types.
+
+2007-10-14:  Initial release.

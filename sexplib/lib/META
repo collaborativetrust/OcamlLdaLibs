@@ -1,0 +1,14 @@
+name = "sexplib"
+version = "3.7.4"
+description = "Sexplib - automated S-expression conversions"
+requires = "bigarray, num"
+archive(byte) = "sexplib.cma"
+archive(native) = "sexplib.cmxa"
+
+package "syntax" (
+  version = "3.7.4"
+  requires = "sexplib, type-conv.syntax, camlp4"
+  description = "Syntax extension for Sexplib"
+  archive(syntax, preprocessor) = "pa_sexp_conv.cmo"
+  archive(syntax, toploop) = "pa_sexp_conv.cmo"
+)
