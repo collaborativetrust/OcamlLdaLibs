@@ -43,16 +43,14 @@ OCAMLOPT_FLAGS=$(INCLUDES)
 ALLCMO = vec/vec.cmo mapmin/mapmin.cmo intvmap/intvmap.cmo hashtbl_bounded/hashtbl_bounded.cmo fileinfo/fileinfo.cmo
 ALLCMX = vec/vec.cmx mapmin/mapmin.cmx intvmap/intvmap.cmx hashtbl_bounded/hashtbl_bounded.cmx fileinfo/fileinfo.cmx
 
-debug: 
-	cd xml-light; make all
-	cd type-conv; make all; 
-	cd sexplib; make all; 
-	make mk_allcmo
-	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO) 
+## We need this seperately because it is a requirement for sexplib, and needs to be installed
+#  before sexplib can be built.
+
+typeconv: 
+	cd type-conv; make uninstall; make all; make install
 
 all: 
 	cd xml-light; make all;  make allopt
-	cd type-conv; make all; 
 	cd sexplib; make all; 
 	make mk_allcmx
 	make mk_allcmo
@@ -60,8 +58,8 @@ all:
 	$(OCAMLOPT) $(OCAMLOPT_FLAGS) -a -o ocamlldalibs.cmxa $(ALLCMX)
 
 install:
-	cd type-conv; make install
 	cd sexplib; make install
+	cd xml-light; make install
 	cd vec; ocamlfind install vec META vec.cmi vec.cmo vec.cmx
 	cd mapmin; ocamlfind install mapmin META mapmin.cmi mapmin.cmo mapmin.cmx
 	cd intvmap; ocamlfind install intvmap META intvmap.cmi intvmap.cmo intvmap.cmx

@@ -17,7 +17,7 @@ installcommon: all
 installbyte: all installcommon
 	cp xml-light.cma $(INSTALLDIR)
 
-installopt: opt installcommon
+installopt: allopt installcommon
 	cp xml-light.a xml-light.cmxa xml.cmx dtd.cmx xmlParser.cmx $(INSTALLDIR)
 
 install: installbyte installopt
