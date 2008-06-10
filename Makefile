@@ -60,20 +60,22 @@ all:
 install:
 	cd sexplib; make install
 	cd xml-light; make install
-	cd vec; ocamlfind install vec META vec.cmi vec.cmo vec.cmx
-	cd mapmin; ocamlfind install mapmin META mapmin.cmi mapmin.cmo mapmin.cmx
-	cd intvmap; ocamlfind install intvmap META intvmap.cmi intvmap.cmo intvmap.cmx
-	cd hashtbl_bounded; ocamlfind install hashtbl_bounded META hashtbl_bounded.cmi hashtbl_bounded.cmo hashtbl_bounded.cmx
-	cd fileinfo; ocamlfind install fileinfo META fileinfo.cmi fileinfo.cmo fileinfo.cmx
+	ocamlfind install ocamlldalibs META ocamlldalibs.* vec/vec.cm* mapmin/mapmin.cm* intvmap/intvmap.cm* hashtbl_bounded/hashtbl_bounded.cm* fileinfo/fileinfo.cm*
+	#cd vec; ocamlfind install vec META vec.cmi vec.cmo vec.cmx
+	#cd mapmin; ocamlfind install mapmin META mapmin.cmi mapmin.cmo mapmin.cmx
+	#cd intvmap; ocamlfind install intvmap META intvmap.cmi intvmap.cmo intvmap.cmx
+	#cd hashtbl_bounded; ocamlfind install hashtbl_bounded META hashtbl_bounded.cmi hashtbl_bounded.cmo hashtbl_bounded.cmx
+	#cd fileinfo; ocamlfind install fileinfo META fileinfo.cmi fileinfo.cmo fileinfo.cmx
 
 uninstall:
 	cd type-conv; make uninstall
 	cd sexplib; make uninstall
-	ocamlfind remove vec
-	ocamlfind remove mapmin
-	ocamlfind remove intvmap
-	ocamlfind remove hashtbl_bounded
-	ocamlfind remove fileinfo
+	ocamlfind remove ocamlldalibs
+	#ocamlfind remove vec
+	#ocamlfind remove mapmin
+	#ocamlfind remove intvmap
+	#ocamlfind remove hashtbl_bounded
+	#ocamlfind remove fileinfo
 
 mk_allcmo: $(ALLCMO)
 mk_allcmx: $(ALLCMX)
