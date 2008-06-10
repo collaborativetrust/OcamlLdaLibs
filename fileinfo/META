@@ -1,0 +1,8 @@
+name = "fileinfo"
+version = "1.0.0"
+description = "fileinfo"
+
+package "syntax" (
+  version = "1.0.0"
+  description = "..."
+)

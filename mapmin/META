@@ -1,0 +1,8 @@
+name = "mapmin"
+version = "1.0.0"
+description = "mapmin"
+
+package "syntax" (
+  version = "1.0.0"
+  description = "..."
+)

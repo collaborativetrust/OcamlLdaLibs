@@ -1,0 +1,8 @@
+name = "intvmap"
+version = "1.0.0"
+description = "intvmap"
+
+package "syntax" (
+  version = "1.0.0"
+  description = "..."
+)

@@ -1,0 +1,8 @@
+name = "hashtbl_bounded"
+version = "1.0.0"
+description = "hashtbl_bounded"
+
+package "syntax" (
+  version = "1.0.0"
+  description = "..."
+)

@@ -1,6 +1,6 @@
 OUR_LD_ADD = str.cma unix.cma xml-light.cma 
 OUR_OPTLD_ADD = str.cmxa unix.cmxa xml-light.cmxa
-INCLUDES = -I xml-light
+INCLUDES = -I xml-light -I vec -I mapmin -I intvmap -I hashtbl_bounded -I fileinfo
 
 OCAMLC=ocamlc
 OCAMLOPT=ocamlopt
@@ -40,48 +40,68 @@ OCAMLOPT_FLAGS=$(INCLUDES)
 
 # Objects
 
-ALLCMO = vec.cmo mapmin.cmo intvmap.cmo hashtbl_bounded.cmo fileinfo.cmo
-ALLCMX = vec.cmx mapmin.cmx intvmap.cmx hashtbl_bounded.cmx fileinfo.cmx
+ALLCMO = vec/vec.cmo mapmin/mapmin.cmo intvmap/intvmap.cmo hashtbl_bounded/hashtbl_bounded.cmo fileinfo/fileinfo.cmo
+ALLCMX = vec/vec.cmx mapmin/mapmin.cmx intvmap/intvmap.cmx hashtbl_bounded/hashtbl_bounded.cmx fileinfo/fileinfo.cmx
 
-all: 
+debug: 
 	cd xml-light; make all
-	cd type-conv; make all; make install
-	cd sexplib; make all; make install
+	cd type-conv; make all; 
+	cd sexplib; make all; 
 	make mk_allcmo
 	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO) 
 
-allopt: 
-	cd xml-light; make allopt
-	cd type-conv; make all; make install
-	cd sexplib; make all; make install
+all: 
+	cd xml-light; make all;  make allopt
+	cd type-conv; make all; 
+	cd sexplib; make all; 
 	make mk_allcmx
+	make mk_allcmo
+	$(OCAMLC) $(OCAML_CFLAGS) -a -o ocamlldalibs.cma $(ALLCMO)
 	$(OCAMLOPT) $(OCAMLOPT_FLAGS) -a -o ocamlldalibs.cmxa $(ALLCMX)
+
+install:
+	cd type-conv; make install
+	cd sexplib; make install
+	cd vec; ocamlfind install vec META vec.cmi vec.cmo vec.cmx
+	cd mapmin; ocamlfind install mapmin META mapmin.cmi mapmin.cmo mapmin.cmx
+	cd intvmap; ocamlfind install intvmap META intvmap.cmi intvmap.cmo intvmap.cmx
+	cd hashtbl_bounded; ocamlfind install hashtbl_bounded META hashtbl_bounded.cmi hashtbl_bounded.cmo hashtbl_bounded.cmx
+	cd fileinfo; ocamlfind install fileinfo META fileinfo.cmi fileinfo.cmo fileinfo.cmx
+
+uninstall:
+	cd type-conv; make uninstall
+	cd sexplib; make uninstall
+	ocamlfind remove vec
+	ocamlfind remove mapmin
+	ocamlfind remove intvmap
+	ocamlfind remove hashtbl_bounded
+	ocamlfind remove fileinfo
 
 mk_allcmo: $(ALLCMO)
 mk_allcmx: $(ALLCMX)
 
-vec: vec.cmo
-vecopt: vec.cmx
+vec: vec/vec.cmo
+vecopt: vec/vec.cmx
 
-mapmin: mapmin.cmo
-mapminopt: mapmin.cmx
+mapmin: mapmin/mapmin.cmo
+mapminopt: mapmin/mapmin.cmx
 
-intvmap: intvmap.cmo
-intvmapopt: intvmap.cmx
+intvmap: intvmap/intvmap.cmo
+intvmapopt: intvmap/intvmap.cmx
 
-hashtbl_bounded: hashtbl_bounded.cmo
-hashtbl_boundedopt: hashtbl_bounded.cmx
+hashtbl_bounded: hashtbl_bounded/hashtbl_bounded.cmo
+hashtbl_boundedopt: hashtbl_bounded/hashtbl_bounded.cmx
 
-fileinfo: fileinfo.cmo
-fileinfoopt: fileinfo.cmx
+fileinfo: fileinfo/fileinfo.cmo
+fileinfoopt: fileinfo/fileinfo.cmx
 
 clean:
-	rm -f *.o *.cmo *.cmx *.cmi .depends 
+	rm -f */*.o */*.cmo */*.cmx */*.cmi *.a *.cma *.cmxa .depends 
 	cd xml-light; make clean
 	cd type-conv; make clean
 	cd sexplib; make clean
 
-.depends: *.ml
+.depends: */*.ml
 	$(OCAMLDEP) $^ > $@
 
 -include .depends
