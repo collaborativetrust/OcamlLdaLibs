@@ -5,9 +5,10 @@ OCAMLMKTOP=ocamlmktop
 OCAMLDEP=ocamldep
 OCAMLMKLIB=ocamlmklib
 OCAMLDOC=ocamldoc
-OCAMLFIND_C=ocamlfind ocamlcp
+OCAMLFIND_C=ocamlfind ocamlc
 OCAMLFIND_COPT=ocamlfind ocamlopt
 
+INSTALLDIR=`ocamlc -where`
 SUFFIXES= .ml .cmo .cmi .cmx
 
 # OCAMLDEBUG = -g -p film 
@@ -42,10 +43,10 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install intvmap META intvmap.cma intvmap.cmxa
+	ocamlfind install -destdir $(INSTALLDIR) intvmap META intvmap.cma intvmap.cmxa intvmap.mli intvmap.ml intvmap.cmi
 
 uninstall:
-	ocamlfind remove intvmap
+	ocamlfind remove -destdir $(INSTALLDIR) intvmap
 
 allnor: 
 	make mk_allcmo

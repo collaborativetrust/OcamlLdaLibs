@@ -5,9 +5,10 @@ OCAMLMKTOP=ocamlmktop
 OCAMLDEP=ocamldep
 OCAMLMKLIB=ocamlmklib
 OCAMLDOC=ocamldoc
-OCAMLFIND_C=ocamlfind ocamlcp
+OCAMLFIND_C=ocamlfind ocamlc
 OCAMLFIND_COPT=ocamlfind ocamlopt
 
+INSTALLDIR=`ocamlc -where`
 SUFFIXES= .ml .cmo .cmi .cmx
 
 # OCAMLDEBUG = -g -p film 
@@ -42,10 +43,10 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install vec META vec.cma vec.cmxa
+	ocamlfind install -destdir $(INSTALLDIR) vec META vec.cma vec.cmxa vec.mli vec.ml vec.cmi
 
 uninstall:
-	ocamlfind remove vec
+	ocamlfind remove -destdir $(INSTALLDIR) vec
 
 allnor: 
 	make mk_allcmo

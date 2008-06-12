@@ -5,9 +5,10 @@ OCAMLMKTOP=ocamlmktop
 OCAMLDEP=ocamldep
 OCAMLMKLIB=ocamlmklib
 OCAMLDOC=ocamldoc
-OCAMLFIND_C=ocamlfind ocamlcp
+OCAMLFIND_C=ocamlfind ocamlc
 OCAMLFIND_COPT=ocamlfind ocamlopt
 
+INSTALLDIR=`ocamlc -where`
 SUFFIXES= .ml .cmo .cmi .cmx
 
 # OCAMLDEBUG = -g -p film 
@@ -34,18 +35,19 @@ OCAMLOPT_FLAGS=$(INCLUDES)
 
 # Objects
 
-ALLCMO = fileinfo.cmo
-ALLCMX = fileinfo.cmx
+ALLCMO = xml-light/xml_parser.cmo xml-light/xml_lexer.cmo xml-light/dtd.cmo xml-light/xmlParser.cmo xml-light/xml.cmo fileinfo.cmo 
+ALLCMX = xml-light/xml_parser.cmx xml-light/xml_lexer.cmx xml-light/dtd.cmx xml-light/xmlParser.cmx xml-light/xml.cmx fileinfo.cmx 
 
 all: 
+	cd xml-light; make all; make allopt
 	make allnor
 	make allopt
 
 install: 
-	ocamlfind install fileinfo META fileinfo.cma fileinfo.cmxa
+	ocamlfind install -destdir $(INSTALLDIR) fileinfo META fileinfo.cma fileinfo.cmxa fileinfo.mli fileinfo.ml fileinfo.cmi
 
 uninstall:
-	ocamlfind remove fileinfo
+	ocamlfind remove -destdir $(INSTALLDIR) fileinfo
 
 allnor: 
 	make mk_allcmo

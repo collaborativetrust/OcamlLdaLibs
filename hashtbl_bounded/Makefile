@@ -5,9 +5,10 @@ OCAMLMKTOP=ocamlmktop
 OCAMLDEP=ocamldep
 OCAMLMKLIB=ocamlmklib
 OCAMLDOC=ocamldoc
-OCAMLFIND_C=ocamlfind ocamlcp
+OCAMLFIND_C=ocamlfind ocamlc
 OCAMLFIND_COPT=ocamlfind ocamlopt
 
+INSTALLDIR=`ocamlc -where`
 SUFFIXES= .ml .cmo .cmi .cmx
 
 # OCAMLDEBUG = -g -p film 
@@ -42,10 +43,10 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install hashtbl_bounded META hashtbl_bounded.cma hashtbl_bounded.cmxa
+	ocamlfind install -destdir $(INSTALLDIR) hashtbl_bounded META hashtbl_bounded.cma hashtbl_bounded.cmxa hashtbl_bounded.mli hashtbl_bounded.ml hashtbl_bounded.cmi
 
 uninstall:
-	ocamlfind remove hashtbl_bounded
+	ocamlfind remove -destdir $(INSTALLDIR) hashtbl_bounded
 
 allnor: 
 	make mk_allcmo

@@ -1,5 +1,4 @@
 all: 
-	cd xml-light;       make all;  make allopt; sudo make install
 	cd type-conv;       make all; sudo make install
 	cd sexplib;         make all; sudo make install
 	cd fileinfo;        make all; sudo make install
@@ -18,7 +17,6 @@ uninstall:
 	cd mapmin; sudo make uninstall
 
 clean:
-	cd xml-light; make clean
 	cd type-conv; make clean
 	cd sexplib; make clean
 	cd fileinfo; make clean
