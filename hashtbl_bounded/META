@@ -1,8 +1,8 @@
-name = "hashtbl_bounded"
+name = "vec"
 version = "1.0.0"
-description = "hashtbl_bounded"
+description = "Hashtbl_bounded: implementation of hash tables with bounded bins"
+archive(byte) = "hashtbl_bounded.cma"
+archive(native) = "hashtbl_bounded.cmxa"
 
-package "syntax" (
-  version = "1.0.0"
-  description = "..."
-)
+
+

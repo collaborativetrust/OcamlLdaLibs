@@ -1,8 +1,5 @@
 name = "vec"
-version = "1.0.0"
-description = "Vec -- an expanding array"
-
-package "syntax" (
-  version = "1.0.0"
-  description = "An expanding array implementation"
-)
+version = "1.3.0"
+description = "Vec -- functional, extensible, shrinking arrays with log-time operations"
+archive(byte) = "vec.cma"
+archive(native) = "vec.cmxa"

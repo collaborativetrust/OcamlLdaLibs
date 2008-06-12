@@ -1,8 +1,5 @@
-name = "fileinfo"
+name = "vec"
 version = "1.0.0"
-description = "fileinfo"
-
-package "syntax" (
-  version = "1.0.0"
-  description = "..."
-)
+description = "Fileinfo: File generation documentation keeper"
+archive(byte) = "fileinfo.cma"
+archive(native) = "fileinfo.cmxa"

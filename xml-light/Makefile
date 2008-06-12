@@ -13,17 +13,20 @@ allopt: xml-light.cmxa test_opt.exe
 
 installcommon: all
 	cp xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi $(INSTALLDIR)
+	cd $(INSTALLDIR); chmod a+r xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi
 
 installbyte: all installcommon
 	cp xml-light.cma $(INSTALLDIR)
+	cd $(INSTALLDIR); chmod a+r xml-light.cma
 
 installopt: allopt installcommon
 	cp xml-light.a xml-light.cmxa xml.cmx dtd.cmx xmlParser.cmx $(INSTALLDIR)
+	cd $(INSTALLDIR); chmod a+r xml-light.a xml-light.cmxa xml.cmx dtd.cmx xmlParser.cmx
 
 install: installbyte installopt
 
 wininstall: all opt
-	cp xml-light.cmxa xml-light.lib xml-light.cma xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi xml.cmx dtd.cmx xmlParser.cmx c:\ocaml\lib
+	umask 022; cp xml-light.cmxa xml-light.lib xml-light.cma xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi xml.cmx dtd.cmx xmlParser.cmx c:\ocaml\lib
 
 doc:
 	mkdir doc

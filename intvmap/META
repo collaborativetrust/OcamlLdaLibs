@@ -1,8 +1,5 @@
 name = "intvmap"
 version = "1.0.0"
-description = "intvmap"
-
-package "syntax" (
-  version = "1.0.0"
-  description = "..."
-)
+description = "Intvmap: implementation of interval maps"
+archive(byte) = "intvmap.cma"
+archive(native) = "intvmap.cmxa"

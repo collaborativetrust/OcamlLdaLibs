@@ -1,8 +1,5 @@
 name = "mapmin"
 version = "1.0.0"
-description = "mapmin"
-
-package "syntax" (
-  version = "1.0.0"
-  description = "..."
-)
+description = "Mapmin: implementation of maps where the minimum element is accessible"
+archive(byte) = "mapmin.cma"
+archive(native) = "mapmin.cmxa"
