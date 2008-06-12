@@ -43,7 +43,7 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) intvmap META intvmap.cma intvmap.cmxa intvmap.mli intvmap.ml intvmap.cmi
+	ocamlfind install -destdir $(INSTALLDIR) intvmap META intvmap.cma intvmap.cmxa intvmap.a intvmap.mli intvmap.ml intvmap.cmi
 
 uninstall:
 	ocamlfind remove -destdir $(INSTALLDIR) intvmap

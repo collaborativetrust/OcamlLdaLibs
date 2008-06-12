@@ -43,7 +43,7 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) hashtbl_bounded META hashtbl_bounded.cma hashtbl_bounded.cmxa hashtbl_bounded.mli hashtbl_bounded.ml hashtbl_bounded.cmi
+	ocamlfind install -destdir $(INSTALLDIR) hashtbl_bounded META hashtbl_bounded.cma hashtbl_bounded.cmxa hashtbl_bounded.a hashtbl_bounded.mli hashtbl_bounded.ml hashtbl_bounded.cmi
 
 uninstall:
 	ocamlfind remove -destdir $(INSTALLDIR) hashtbl_bounded

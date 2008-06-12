@@ -44,7 +44,7 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) fileinfo META fileinfo.cma fileinfo.cmxa fileinfo.mli fileinfo.ml fileinfo.cmi
+	ocamlfind install -destdir $(INSTALLDIR) fileinfo META fileinfo.cma fileinfo.cmxa fileinfo.a fileinfo.mli fileinfo.ml fileinfo.cmi
 
 uninstall:
 	ocamlfind remove -destdir $(INSTALLDIR) fileinfo

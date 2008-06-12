@@ -43,7 +43,7 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) vec META vec.cma vec.cmxa vec.mli vec.ml vec.cmi
+	ocamlfind install -destdir $(INSTALLDIR) vec META vec.cma vec.cmxa vec.a vec.mli vec.ml vec.cmi
 
 uninstall:
 	ocamlfind remove -destdir $(INSTALLDIR) vec

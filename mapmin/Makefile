@@ -43,7 +43,7 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) mapmin META mapmin.cma mapmin.cmxa mapmin.mli mapmin.ml mapmin.cmi
+	ocamlfind install -destdir $(INSTALLDIR) mapmin META mapmin.cma mapmin.cmxa mapmin.a mapmin.mli mapmin.ml mapmin.cmi
 
 uninstall:
 	ocamlfind remove -destdir $(INSTALLDIR) mapmin
