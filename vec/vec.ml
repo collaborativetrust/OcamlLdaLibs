@@ -1,9 +1,13 @@
 (* Vec: implementation of extensible arrays. 
 
-   Copyright Luca de Alfaro <lda@dealfaro.org>, 2007.
+   Copyright 2007-08: 
+   Luca de Alfaro <lda@dealfaro.org>
+   Ming Kawaguchi <mwookawa@cs.ucsd.edu>
+   Krishnendu Chatterjee <krish.chat@gmail.com>
+
    All rights reserved.  
 
-   Version 1.3
+   Version 1.4
 
    Based on Xavier Leroy's code for Set and Map.
 
@@ -107,30 +111,39 @@ let rec recbal l d r =
   let hr = match r with Empty -> 0 | Node(_,_,_,_,_,h) -> h in
   if hl > hr + 2 then begin
     match l with
-      Empty -> invalid_arg "Vec.bal"
-    | Node(ll, _, ld, lr, _, _) ->
+      Empty -> invalid_arg "Vec.recbal"
+    | Node(ll, _, ld, lr, _, h) ->
         if height ll >= height lr then
-          makenode ll ld (recbal lr d r)
+          bal ll ld (recbal lr d r)
         else begin
           match lr with
-            Empty -> invalid_arg "Vec.bal"
-          | Node(lrl, _, lrd, lrr, _, _) ->
-              makenode (makenode ll ld lrl) lrd (recbal lrr d r)
+            Empty -> invalid_arg "Vec.recbal"
+          | Node(lrl, _, lrd, lrr, _, h) ->
+              let nr = recbal lrr d r in
+                if height nr < height lr - 2 then
+                  makenode ll ld (bal lrl lrd nr)
+                else
+                  makenode (makenode ll ld lrl) lrd nr
         end
   end else if hr > hl + 2 then begin
     match r with
-      Empty -> invalid_arg "Vec.bal"
-    | Node(rl, _, rd, rr, _, _) ->
+      Empty -> invalid_arg "Vec.recbal"
+    | Node(rl, _, rd, rr, _, h) ->
         if height rr >= height rl then
-          makenode (recbal l d rl) rd rr
+            bal (recbal l d rl) rd rr
         else begin
           match rl with
-            Empty -> invalid_arg "Vec.bal"
-          | Node(rll, _, rld, rlr, _, _) ->
-              makenode (recbal l d rll) rld (makenode rlr rd rr)
+            Empty -> invalid_arg "Vec.recbal"
+          | Node(rll, _, rld, rlr, _, h) ->
+              let nl = recbal l d rll in
+                if height nl < height rl - 2 then
+                  makenode (bal nl rld rlr) rd rr
+                else
+                  makenode nl rld (makenode rlr rd rr)
         end
   end 
-  else makenode l d r 
+  else makenode l d r
+
       
 let empty = Empty
   

@@ -1,9 +1,13 @@
 (* Vec: implementation of extensible arrays. 
 
-   Copyright Luca de Alfaro <lda@dealfaro.org>, 2007.
+   Copyright 2007-08: 
+   Luca de Alfaro <lda@dealfaro.org>
+   Ming Kawaguchi <mwookawa@cs.ucsd.edu>
+   Krishnendu Chatterjee <krish.chat@gmail.com>
+
    All rights reserved.  
 
-   Version 1.3
+   Version 1.4
 
    Based on Xavier Leroy's code for Set and Map.
 
