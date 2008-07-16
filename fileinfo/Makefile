@@ -61,6 +61,7 @@ mk_allcmo: $(ALLCMO)
 mk_allcmx: $(ALLCMX)
 
 clean:
+	cd xml-light; make clean
 	rm -f *.o *.a *.cmo *.cmx *.cma *.cmxa *.cmi .depends 
 
 .depends: *.ml
