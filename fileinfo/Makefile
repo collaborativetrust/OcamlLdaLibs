@@ -1,5 +1,5 @@
-OCAMLC=ocamlc
-OCAMLOPT=ocamlopt
+OCAMLC=ocamlc -I xml-light
+OCAMLOPT=ocamlopt -I xml-light
 OCAMLMKTOP=ocamlmktop
 
 OCAMLDEP=ocamldep
