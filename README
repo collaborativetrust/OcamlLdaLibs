@@ -3,12 +3,21 @@ Packages required:
  * camlp4-extra
  * ocaml-findlib
 
-To make: 
+To make for the first time: 
+
 $ make all
 
 You will be asked for the root password, as installation is part of
 the make process.  This because some of the packages need, in order to
 be built, for previous packages to be already installed. 
+
+To make subsequent times: 
+
+$ make clean
+$ make uninstall
+$ make all
+
+The "make uninstall" is necessary! 
 
 You can find in the various subdirectories Makefiles that are
 perfectly functional, should you wish to build the packages and
