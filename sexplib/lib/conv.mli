@@ -32,6 +32,15 @@ type 'a sexp_option = 'a option
 
 (** {6 Conversion of OCaml-values to S-expressions} *)
 
+val default_string_of_string : (string -> string) ref
+(** [default_string_of_string] reference to the default function used
+    to convert string to strings.
+
+    Initially set to [fun str -> str].
+    
+    ** Extension to the std. by Ian Pye **
+*)
+
 val default_string_of_float : (float -> string) ref
 (** [default_string_of_float] reference to the default function used
     to convert floats to strings.

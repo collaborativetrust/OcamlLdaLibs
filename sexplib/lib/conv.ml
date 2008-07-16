@@ -32,13 +32,14 @@ type 'a sexp_option = 'a option
 
 (* Conversion of OCaml-values to S-expressions *)
 
+let default_string_of_string = ref (fun str -> str)
 let default_string_of_float = ref (fun n -> sprintf "%.20G" n)
 let read_old_option_format = ref true
 let write_old_option_format = ref true
 
 let sexp_of_unit () = List []
 let sexp_of_bool b = Atom (string_of_bool b)
-let sexp_of_string str = Atom str
+let sexp_of_string str = Atom (!default_string_of_string str)
 let sexp_of_char c = Atom (String.make 1 c)
 let sexp_of_int n = Atom (string_of_int n)
 let sexp_of_float n = Atom (!default_string_of_float n)
