@@ -8,7 +8,6 @@ OCAMLDOC=ocamldoc
 OCAMLFIND_C=ocamlfind ocamlc
 OCAMLFIND_COPT=ocamlfind ocamlopt
 
-INSTALLDIR=`ocamlc -where`
 SUFFIXES= .ml .cmo .cmi .cmx
 
 # OCAMLDEBUG = -g -p film 
@@ -44,10 +43,10 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) fileinfo META fileinfo.cma fileinfo.cmxa fileinfo.a fileinfo.mli fileinfo.ml fileinfo.cmi
+	ocamlfind install fileinfo META fileinfo.cma fileinfo.cmxa fileinfo.a fileinfo.mli fileinfo.ml fileinfo.cmi
 
 uninstall:
-	ocamlfind remove -destdir $(INSTALLDIR) fileinfo
+	ocamlfind remove fileinfo
 
 allnor: 
 	make mk_allcmo

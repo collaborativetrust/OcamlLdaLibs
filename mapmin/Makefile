@@ -8,7 +8,6 @@ OCAMLDOC=ocamldoc
 OCAMLFIND_C=ocamlfind ocamlc
 OCAMLFIND_COPT=ocamlfind ocamlopt
 
-INSTALLDIR=`ocamlc -where`
 SUFFIXES= .ml .cmo .cmi .cmx
 
 # OCAMLDEBUG = -g -p film 
@@ -43,10 +42,10 @@ all:
 	make allopt
 
 install: 
-	ocamlfind install -destdir $(INSTALLDIR) mapmin META mapmin.cma mapmin.cmxa mapmin.a mapmin.mli mapmin.ml mapmin.cmi
+	ocamlfind install mapmin META mapmin.cma mapmin.cmxa mapmin.a mapmin.mli mapmin.ml mapmin.cmi
 
 uninstall:
-	ocamlfind remove -destdir $(INSTALLDIR) mapmin
+	ocamlfind remove mapmin
 
 allnor: 
 	make mk_allcmo
