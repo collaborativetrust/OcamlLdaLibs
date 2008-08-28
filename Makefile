@@ -1,6 +1,4 @@
 all: 
-	cd type-conv;       make all; sudo make install
-	cd sexplib;         make all; sudo make install
 	cd fileinfo;        make all; sudo make install
 	cd vec;             make all; sudo make install
 	cd hashtbl_bounded; make all; sudo make install
@@ -8,8 +6,6 @@ all:
 	cd mapmin;          make all; sudo make install
 
 all-godi: 
-	cd type-conv;       make all; make install
-	cd sexplib;         make all; make install
 	cd fileinfo;        make all; make install
 	cd vec;             make all; make install
 	cd hashtbl_bounded; make all; make install
@@ -17,8 +13,6 @@ all-godi:
 	cd mapmin;          make all; make install
 
 uninstall:
-	cd sexplib; sudo make uninstall
-	cd type-conv; sudo make uninstall
 	cd fileinfo; sudo make uninstall
 	cd vec; sudo make uninstall
 	cd hashtbl_bounded; sudo make uninstall
@@ -26,8 +20,6 @@ uninstall:
 	cd mapmin; sudo make uninstall
 
 uninstall-godi:
-	cd sexplib; make uninstall
-	cd type-conv; make uninstall
 	cd fileinfo; make uninstall
 	cd vec; make uninstall
 	cd hashtbl_bounded; make uninstall
@@ -35,8 +27,6 @@ uninstall-godi:
 	cd mapmin; make uninstall
 
 clean:
-	cd type-conv; make clean
-	cd sexplib; make clean
 	cd fileinfo; make clean
 	cd vec; make clean
 	cd hashtbl_bounded; make clean
