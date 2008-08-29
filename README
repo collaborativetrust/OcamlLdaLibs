@@ -7,7 +7,7 @@ To make for the first time, there are two ways.
 
 1) If you need to be root to install: 
 
-   $ make all
+   $ make all-sudo
 
    You will be asked for the root password, as installation is part of
    the make process.  This because some of the packages need, in order to
@@ -15,16 +15,16 @@ To make for the first time, there are two ways.
 
 2) If you can install without being root, as when you are using godi: 
 
-   $ make all-godi
+   $ make all
 
 
 To make subsequent times: 
 
 $ make clean
-$ make uninstall[-godi]
-$ make all[-godi]
+$ make uninstall[-sudo]
+$ make all[-sudo]
 
-The "make uninstall[-godi]" is necessary! 
+The "make uninstall[-sudo]" is necessary! 
 
 You can find in the various subdirectories Makefiles that are
 perfectly functional, should you wish to build the packages and

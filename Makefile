@@ -1,25 +1,25 @@
-all: 
+all-sudo: 
 	cd fileinfo;        make all; sudo make install
 	cd vec;             make all; sudo make install
 	cd hashtbl_bounded; make all; sudo make install
 	cd intvmap;         make all; sudo make install
 	cd mapmin;          make all; sudo make install
 
-all-godi: 
+all: 
 	cd fileinfo;        make all; make install
 	cd vec;             make all; make install
 	cd hashtbl_bounded; make all; make install
 	cd intvmap;         make all; make install
 	cd mapmin;          make all; make install
 
-uninstall:
+uninstall-sudo:
 	cd fileinfo; sudo make uninstall
 	cd vec; sudo make uninstall
 	cd hashtbl_bounded; sudo make uninstall
 	cd intvmap; sudo make uninstall
 	cd mapmin; sudo make uninstall
 
-uninstall-godi:
+uninstall:
 	cd fileinfo; make uninstall
 	cd vec; make uninstall
 	cd hashtbl_bounded; make uninstall
